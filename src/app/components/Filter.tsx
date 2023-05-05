@@ -1,6 +1,13 @@
 'use client'
 import React, { useId } from 'react'
 import { useFilter } from '../hooks/useFilter'
+interface FilterInterface {
+  setFilters: (filter: any) => void
+  filters: {
+    category: string
+    minPrice: number
+  }
+}
 
 export const Filter = () => {
   const { filters, setFilters } = useFilter()
@@ -10,14 +17,14 @@ export const Filter = () => {
 
   const handleChangePriceMin = (e: any) => {
     let target = e.target as HTMLInputElement
-    setFilters(prevFilters => ({
+    setFilters((prevFilters: FilterInterface) => ({
       ...prevFilters,
       minPrice: Number(target.value)
     }))
   }
 
   const handleChangeCategory = (event: any) => {
-    setFilters(prevState => ({
+    setFilters((prevState: FilterInterface) => ({
       ...prevState,
       category: event.target.value
     }))

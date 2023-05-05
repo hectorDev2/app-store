@@ -3,7 +3,8 @@ import { ReactNode, createContext, useReducer } from 'react'
 import { Product } from '../interfaces/product'
 export const CartContext = createContext({
   cart: [],
-  addToCart: (product: Product) => {}
+  addToCart: (product: Product) => {},
+  clear: () => {}
 })
 
 type ChildrenProps = {
@@ -20,13 +21,13 @@ export const CART_ACTIONS = {
 
 interface Action {
   type: string
-  payload: Product
+  payload?: Product
 }
 const cartReducer = (state: any, action: Action) => {
   switch (action.type) {
     case CART_ACTIONS.ADD_TO_CART:
       const existInCart = state.find(
-        (product: Product) => product.id == action.payload.id
+        (product: Product) => product.id == action.payload?.id
       )
       if (existInCart) return state
       return [...state, action.payload]
@@ -36,7 +37,7 @@ const cartReducer = (state: any, action: Action) => {
 
     case CART_ACTIONS.REMOVE_FROM_CART:
       const stateNew = state.filter(
-        (product: Product) => product.id !== action.payload.id
+        (product: Product) => product.id !== action.payload?.id
       )
       return stateNew
     default:
@@ -53,17 +54,23 @@ export function UseCartReducer () {
       payload: product
     })
 
-  return { cart, addToCart }
+  const clear = () => {
+    dispatch({
+      type: CART_ACTIONS.CLEAR_CART
+    })
+  }
+  return { cart, addToCart, clear }
 }
 
 export function CartProvider ({ children }: ChildrenProps) {
-  const { cart, addToCart } = UseCartReducer()
+  const { cart, clear, addToCart } = UseCartReducer()
 
   return (
     <CartContext.Provider
       value={{
         cart,
-        addToCart
+        addToCart,
+        clear
       }}
     >
       {children}

@@ -4,6 +4,7 @@ import { Products } from './components/Products'
 import styles from './page.module.css'
 import { products } from '../mock/products.json'
 import { useFilter } from './hooks/useFilter'
+import { Cart } from './components/Cart'
 
 export default function Home () {
   const { filterProducts, filters } = useFilter()
@@ -11,6 +12,7 @@ export default function Home () {
   return (
     <main className={styles.main}>
       <Header />
+      <Cart />
       <Products
         products={filterProducts(products)}
         total={0}
