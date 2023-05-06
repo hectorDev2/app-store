@@ -4,7 +4,9 @@ import { Product } from '../interfaces/product'
 export const CartContext = createContext({
   cart: [],
   addToCart: (product: Product) => {},
-  clear: () => {}
+  clear: () => {},
+  deleteToCart: (product: Product) => {},
+  checkProductInCart: (product: Product) => false
 })
 
 type ChildrenProps = {
@@ -59,18 +61,31 @@ export function UseCartReducer () {
       type: CART_ACTIONS.CLEAR_CART
     })
   }
-  return { cart, addToCart, clear }
+
+  const deleteToCart = (product: Product) =>
+    dispatch({
+      type: CART_ACTIONS.REMOVE_FROM_CART,
+      payload: product
+    })
+
+  return { cart, addToCart, deleteToCart, clear }
 }
 
 export function CartProvider ({ children }: ChildrenProps) {
-  const { cart, clear, addToCart } = UseCartReducer()
+  const { cart, clear, deleteToCart, addToCart } = UseCartReducer()
+
+  const checkProductInCart = (product: Product) => {
+    return cart.some((item: Product) => item.id === product.id)
+  }
 
   return (
     <CartContext.Provider
       value={{
         cart,
         addToCart,
-        clear
+        clear,
+        deleteToCart,
+        checkProductInCart
       }}
     >
       {children}

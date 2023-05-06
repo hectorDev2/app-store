@@ -1,3 +1,4 @@
+import { Header } from './components/Header'
 import { CartProvider } from './context/cart'
 import { ProviderFilter } from './context/filter'
 import './globals.css'
@@ -19,7 +20,10 @@ export default function RootLayout ({
     <html lang='en'>
       <ProviderFilter>
         <CartProvider>
-          <body className={inter.className}>{children}</body>
+          <body className={inter.className}>
+            <Header />
+            {children}
+          </body>
         </CartProvider>
       </ProviderFilter>
     </html>

@@ -11,7 +11,6 @@ export default function Home () {
 
   return (
     <main className={styles.main}>
-      <Header />
       <Cart />
       <Products
         products={filterProducts(products)}

@@ -31,7 +31,7 @@ export const Filter = () => {
   }
 
   return (
-    <div className='d-flex justify-content-center gap-4'>
+    <div className='container-filter'>
       <div>
         <label htmlFor={minPriceFilterId}>Precio a partir de:</label>
         <input
