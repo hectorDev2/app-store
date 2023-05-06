@@ -102,6 +102,34 @@ a {
 
 @media (prefers-color-scheme: dark) {
   html {
-    color-scheme: dark;
+    color-scheme: #264653;
   }
+}
+
+.productCard{
+  width:250px;
+  text-align: center;
+  background: #457b9d;
+  padding-bottom:10px;
+  border-radius: 5px;
+}
+.productCard h4{
+  width:80%;
+  color :#a8dadc;
+  margin:auto
+}
+.productCard button{
+  background: #e63946;
+  padding:5px 10px;
+  border:none;
+  color:white;
+  border-radius: 5px;
+  margin-top:5px;
+}
+
+button{
+  padding:5px 10px;
+  border:none;
+  border-radius: 5px;
+  margin-top:5px;
 }
